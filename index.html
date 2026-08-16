@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5ed7">
+<meta name="description" content="BW Inventor — gestion commerciale">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/logo.jpg">
+<title>BW Inventor</title>
+<style>
+:root{--blue:#0b5ed7;--blue2:#084298;--gold:#d6a84f;--ink:#172033;--muted:#68758a;--bg:#f4f7fb;--card:#fff;--line:#e5eaf2;--good:#168a4a;--bad:#c83232;--shadow:0 10px 30px rgba(16,32,64,.08);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}.app{min-height:100vh}.top{position:sticky;top:0;z-index:30;background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;box-shadow:0 4px 20px #0002}.topbar{max-width:1200px;margin:auto;padding:12px 16px;display:flex;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand img{width:44px;height:44px;border-radius:12px;background:#fff;object-fit:cover;padding:2px}.brand b{display:block;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand small{opacity:.8}.spacer{flex:1}.iconbtn{width:42px;height:42px;border-radius:13px;background:#ffffff1c;color:#fff;font-size:19px}.shell{max-width:1200px;margin:auto;padding:16px 16px 90px}.hero{border-radius:24px;padding:22px;background:linear-gradient(135deg,#0b5ed7,#062e78);color:#fff;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-60px;top:-70px;background:#ffffff12}.hero h1{margin:0 0 5px;font-size:28px}.hero p{margin:0;opacity:.85}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px;animation:rise .35s ease both}.stat{font-size:23px;font-weight:800;margin-top:6px}.label{color:var(--muted);font-size:13px}.positive{color:var(--good)}.negative{color:var(--bad)}.section{margin-top:18px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.sectionhead h2{margin:0;font-size:20px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{background:var(--blue);color:#fff;padding:11px 14px;border-radius:12px;font-weight:700;box-shadow:0 5px 14px #0b5ed733}.btn.secondary{background:#eaf2ff;color:var(--blue);box-shadow:none}.btn.danger{background:#ffecec;color:var(--bad);box-shadow:none}.btn.gold{background:var(--gold);color:#17120a}.btn:active{transform:scale(.98)}.nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:7px max(8px,env(safe-area-inset-left)) max(7px,env(safe-area-inset-bottom))}.nav button{background:none;color:#748096;padding:6px 2px;border-radius:12px;font-size:11px}.nav button b{display:block;font-size:19px;line-height:20px}.nav button.active{background:#eaf2ff;color:var(--blue)}.page{display:none}.page.active{display:block;animation:fade .22s ease}.formgrid{display:grid;grid-template-columns:2fr 1fr 120px auto;gap:10px;align-items:end}.field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:0 0 5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d5dce8;border-radius:11px;padding:11px 12px;background:#fff;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0b5ed714}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.table{width:max-content;min-width:100%;border-collapse:collapse}.table th,.table td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.table th{background:#f7f9fc;color:#58657a;font-size:12px;position:sticky;top:0}.table tr:last-child td{border-bottom:0}.pill{display:inline-flex;padding:5px 8px;border-radius:99px;background:#eef2f7;font-size:12px;font-weight:700}.pill.good{background:#e9f8ef;color:var(--good)}.pill.bad{background:#ffeded;color:var(--bad)}.toolbar{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:8px;margin-bottom:10px}.empty{padding:22px;text-align:center;color:var(--muted)}.notice{padding:13px 15px;border-radius:14px;background:#eef5ff;color:#174b9b}.difference{margin-top:12px;border-radius:14px;padding:14px;font-weight:800}.difference.good{background:#eaf8ef;color:var(--good)}.difference.bad{background:#ffeded;color:var(--bad)}.modalback,.lockback,.welcome{position:fixed;inset:0;z-index:100;background:#081120aa;backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}.modal{width:min(520px,100%);background:#fff;border-radius:22px;padding:20px;box-shadow:0 30px 80px #0004}.modal h3{margin-top:0}.modal .field{margin:10px 0}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}.lockcard{width:min(390px,100%);background:#fff;border-radius:26px;padding:25px;text-align:center}.lockcard img{width:90px;height:90px;border-radius:22px;object-fit:cover}.pin{font-size:28px;text-align:center;letter-spacing:10px}.welcome .box{width:min(520px,100%);text-align:center;color:#fff;animation:pop .5s ease}.welcome img{width:110px;height:110px;border-radius:28px;object-fit:cover;border:4px solid #fff}.verse{font-size:20px;line-height:1.5;margin-top:18px}.toast{position:fixed;right:16px;bottom:85px;z-index:150;background:#172033;color:#fff;padding:13px 16px;border-radius:14px;box-shadow:var(--shadow);transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s}.toast.show{transform:none;opacity:1}.hidden{display:none!important}.muted{color:var(--muted)}hr{border:0;border-top:1px solid var(--line);margin:18px 0}.settingsgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.install{display:none}.install.show{display:block}
+.iconOnly{width:42px;height:42px;padding:0!important;display:inline-grid;place-items:center;border-radius:12px;font-size:20px;line-height:1}
+.iconOnly.sm{width:36px;height:36px;border-radius:10px;font-size:17px}
+.iconOnly.danger{background:#ffecec;color:var(--bad)}
+.iconOnly.secondary{background:#eaf2ff;color:var(--blue)}
+.iconOnly.gold{background:#fff4cf;color:#7a5600}
+.iconActions{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.historySearch{margin-bottom:10px}
+.logoPreview{width:72px;height:72px;border-radius:18px;object-fit:cover;border:1px solid var(--line);display:block;margin-bottom:8px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:1fr 1fr}.formgrid .field:first-child{grid-column:1/-1}.toolbar{grid-template-columns:1fr 1fr}.settingsgrid{grid-template-columns:1fr}.nav button{font-size:9px}.nav button b{font-size:18px}.table th,.table td{padding:9px}.lockcard{width:min(360px,calc(100vw - 28px));padding:20px}.lockcard .btn{width:100%}}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:8px}.shell{padding:12px 10px 88px}.hero{padding:18px}.formgrid{grid-template-columns:1fr}.formgrid .field:first-child{grid-column:auto}.toolbar{grid-template-columns:1fr}.iconOnly{width:38px;height:38px}.brand b{font-size:17px}}
+@media print{body{background:#fff!important;color:#111!important}.top,.nav,#modalBack,#lockBack,#welcome,#toast{display:none!important}.shell{max-width:none;padding:0}.page{display:none!important}.page#printReport{display:block!important}.noPrint{display:none!important}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+body[data-theme="dark"]{--bg:#0d1117;--card:#161b22;--ink:#f0f6fc;--muted:#9aa7b8;--line:#30363d}.top{background:linear-gradient(135deg,#071d3f,#0b5ed7)}body[data-theme="dark"] .field input,body[data-theme="dark"] .field select,body[data-theme="dark"] .field textarea{background:#0d1117;color:var(--ink);border-color:#30363d}body[data-theme="dark"] .btn.secondary{background:#172b4d;color:#9fc2ff}body[data-theme="dark"] .table th{background:#111820;color:#aab7c8}body[data-theme="dark"] .modal,body[data-theme="dark"] .lockcard{background:#161b22;color:var(--ink)}body[data-theme="dark"] .nav{background:#161b22;border-color:#30363d}body[data-theme="dark"] .nav button.active{background:#172b4d;color:#9fc2ff}body[data-theme="dark"] .notice{background:#12233c;color:#a8c7ff}
+@media(min-width:1200px){.shell{padding-left:24px;padding-right:24px}.grid{gap:16px}}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:1fr 1fr}.formgrid .wide{grid-column:1/-1}.toolbar{grid-template-columns:1fr 1fr}.settingsgrid{grid-template-columns:1fr}.hero h1{font-size:24px}.shell{padding-left:12px;padding-right:12px}}
+@media(max-width:520px){.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:12px;border-radius:15px}.stat{font-size:18px}.sectionhead{align-items:flex-start;flex-direction:column}.sectionhead .actions{width:100%}.sectionhead .actions .btn{flex:1}.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:auto}.toolbar{grid-template-columns:1fr}.topbar{padding:9px 10px}.brand img{width:40px;height:40px}.brand b{font-size:16px}.nav button{font-size:9px}.nav button b{font-size:17px}.shell{padding:10px 10px 90px}}
+@media(min-width:1600px){.shell,.topbar{max-width:1400px}}
+button,.btn,.iconbtn{touch-action:manipulation;min-height:42px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* PIN lock screen — correct selectors + true viewport centering */
+#lockBack.lockback{
+  position:fixed!important;
+  inset:0!important;
+  z-index:10000!important;
+  width:100vw!important;
+  height:100dvh!important;
+  min-height:100vh!important;
+  margin:0!important;
+  padding:clamp(12px,4vw,24px)!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:auto!important;
+}
+#lockBack.lockback.hidden{display:none!important}
+#lockBack .lockcard{
+  width:calc(100vw - 32px)!important;
+  max-width:420px!important;
+  min-width:0!important;
+  margin:0 auto!important;
+  box-sizing:border-box!important;
+  padding:clamp(20px,6vw,32px)!important;
+  border-radius:24px!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+#lockBack .lockcard img{
+  display:block!important;
+  width:clamp(76px,22vw,96px)!important;
+  height:clamp(76px,22vw,96px)!important;
+  margin:0 auto 14px!important;
+}
+#lockBack #pinInput{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:54px!important;
+  min-height:54px!important;
+  box-sizing:border-box!important;
+  margin:14px 0!important;
+  padding:10px 14px!important;
+  text-align:center!important;
+  letter-spacing:clamp(6px,2.5vw,12px)!important;
+  font-size:clamp(22px,7vw,32px)!important;
+}
+#lockBack #unlock{width:min(240px,100%)!important;margin:4px auto 0!important}
+@media(max-width:380px){
+ #lockBack.lockback{padding:10px!important}
+ #lockBack .lockcard{width:calc(100vw - 20px)!important;padding:18px!important;border-radius:20px!important}
+ #lockBack .lockcard h2{font-size:22px!important}
+}
+@media(min-width:700px){
+ #lockBack .lockcard{max-width:440px!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="topbar"><div class="brand"><img id="brandLogo" src="./icons/logo.jpg" alt="Black Wakeup"><div><b id="appTitle">BW Inventor</b><small id="companyTitle">Black Wakeup Company</small></div></div><div class="spacer"></div><button class="iconbtn" id="installBtn" title="Installer">⬇</button><button class="iconbtn" id="lockBtn" title="Verrouiller">🔒</button></div></header>
+<main class="shell">
+<section id="home" class="page active">
+<div class="hero"><h1>Bienvenue Chef 👋</h1><p id="heroDate"></p><div class="difference hidden" id="difference"></div></div>
+<div class="grid">
+<div class="card"><div class="label">Inventaire</div><div class="stat" id="sInventory">0 FC</div></div>
+<div class="card"><div class="label">Clients</div><div class="stat" id="sClients">0 FC</div></div>
+<div class="card"><div class="label">À payer</div><div class="stat" id="sMine">0 FC</div></div>
+<div class="card"><div class="label">Dépenses</div><div class="stat" id="sExpenses">0 FC</div></div>
+</div>
+<div class="section"><div class="sectionhead"><h2>Raccourcis</h2></div><div class="grid">
+<div class="card"><button class="btn iconOnly" data-go="inventory" title="Nouvel inventaire" aria-label="Nouvel inventaire">📦</button></div>
+<div class="card"><button class="btn iconOnly" data-go="debts" title="Gérer les dettes" aria-label="Gérer les dettes">💳</button></div>
+<div class="card"><button class="btn iconOnly" data-go="expenses" title="Ajouter une dépense" aria-label="Ajouter une dépense">💸</button></div>
+<div class="card"><button class="btn secondary iconOnly" data-go="history" title="Voir l’historique" aria-label="Voir l’historique">📜</button></div>
+</div></div>
+<div class="section card"><div class="sectionhead"><h2>Dernières opérations</h2><button class="btn secondary iconOnly" data-go="history" title="Tout voir" aria-label="Tout voir">→</button></div><div id="recent"></div></div>
+</section>
+
+<section id="inventory" class="page">
+<div class="sectionhead"><h2>📦 Inventaire hebdomadaire</h2><div class="actions"><button class="btn secondary iconOnly" id="newWeek" title="Nouvel inventaire" aria-label="Nouvel inventaire">＋</button><button class="btn gold iconOnly" id="validateWeek" title="Valider l’inventaire" aria-label="Valider l’inventaire">✓</button></div></div>
+<div class="card">
+<div class="formgrid">
+<div class="field wide"><label>Taux du jour — 1 USD =</label><input id="rate" type="number" inputmode="decimal" placeholder="2850"></div>
+<div class="field"><label>Libellé</label><input id="invLabel" autocomplete="off"></div>
+<div class="field"><label>Montant</label><input id="invAmount" type="number" inputmode="decimal"></div>
+<div class="field"><label>Devise</label><select id="invCur"><option>FC</option><option>USD</option></select></div>
+<div class="field"><button class="btn iconOnly" id="addInv" title="Ajouter une opération" aria-label="Ajouter une opération">＋</button></div>
+</div>
+<div class="notice" style="margin-top:12px">Le taux est mémorisé pour l'inventaire en cours. Les effets financiers sont clôturés uniquement à la validation.</div>
+</div>
+<div class="card section"><div class="sectionhead"><h2>Opérations en cours</h2><button class="btn secondary iconOnly" id="hideKeyboard" title="Masquer le clavier" aria-label="Masquer le clavier">⌨️</button></div><div class="tablewrap"><table class="table"><thead><tr><th>Libellé</th><th>Montant</th><th>Devise</th><th>Équivalent FC</th><th>Date / heure</th><th></th></tr></thead><tbody id="invRows"></tbody></table></div></div>
+<div class="card section"><div class="sectionhead"><h2>Inventaires validés</h2></div><div class="tablewrap"><table class="table"><thead><tr><th>Date</th><th>Taux</th><th>Brut</th><th>Créances</th><th>À payer</th><th>Dépenses</th><th>Net</th></tr></thead><tbody id="weeks"></tbody></table></div></div>
+</section>
+
+<section id="debts" class="page">
+<div class="sectionhead"><h2>💳 Dettes</h2><div class="actions"><button class="btn iconOnly" id="addClient" title="Ajouter un client" aria-label="Ajouter un client">＋👤</button><button class="btn secondary iconOnly" id="addMine" title="Ajouter une dette à payer" aria-label="Ajouter une dette à payer">＋🏷️</button></div></div>
+<div class="card"><div class="actions"><button class="btn secondary debtmode active" id="clientsTab">👤 Clients</button><button class="btn secondary debtmode" id="mineTab">🏷️ Mes dettes</button></div><div class="toolbar" style="margin-top:10px"><input id="debtSearch" placeholder="🔍 Rechercher un nom"><select id="debtFilter"><option value="all">Toutes</option><option value="active">Actives</option><option value="archive">Archives</option><option value="amountDesc">Plus gros montant</option><option value="amountAsc">Plus petit montant</option><option value="dateDesc">Plus récent</option></select><input id="debtFrom" type="date"><input id="debtTo" type="date"></div><div class="tablewrap"><table class="table"><thead><tr><th>Nom</th><th>Dette</th><th>Équiv. FC</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="debtRows"></tbody></table></div></div>
+</section>
+
+<section id="expenses" class="page">
+<div class="sectionhead"><h2>💸 Dépenses</h2><button class="btn iconOnly" id="addExpense" title="Ajouter une dépense" aria-label="Ajouter une dépense">＋</button></div>
+<div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Date / heure</th><th>Libellé</th><th>Montant</th><th>Équiv. FC</th><th></th></tr></thead><tbody id="expenseRows"></tbody></table></div></div>
+</section>
+
+<section id="history" class="page">
+<div class="sectionhead"><h2>📜 Historique</h2><button class="btn danger iconOnly" id="clearHistory" title="Effacer tout l’historique" aria-label="Effacer tout l’historique">🗑️</button></div>
+<div class="card"><div class="historySearch"><input id="histSearch" class="field" style="width:100%;border:1px solid #d5dce8;border-radius:11px;padding:11px 12px" placeholder="🔎 Rechercher une opération par nom ou libellé" autocomplete="off"></div><div class="toolbar"><input id="histFrom" type="date"><input id="histTo" type="date"><input id="histTimeFrom" type="time"><input id="histTimeTo" type="time"><button class="btn secondary iconOnly" id="clearHistFilters" title="Réinitialiser les filtres" aria-label="Réinitialiser les filtres">↺</button></div><div class="tablewrap"><table class="table"><thead><tr><th>Date</th><th>Heure</th><th>Type</th><th>Libellé</th><th>Montant</th><th>FC</th></tr></thead><tbody id="historyRows"></tbody></table></div></div>
+</section>
+
+<section id="reports" class="page">
+<div class="sectionhead"><h2>📊 Rapports</h2></div><div class="grid">
+<div class="card"><div class="label">Actifs clients</div><div class="stat" id="rActive">0</div></div>
+<div class="card"><div class="label">Clients archivés</div><div class="stat" id="rArchive">0</div></div>
+<div class="card"><div class="label">Opérations</div><div class="stat" id="rOps">0</div></div>
+<div class="card"><div class="label">Inventaires validés</div><div class="stat" id="rWeeks">0</div></div>
+</div><div class="card section"><h3>Résumé financier</h3><div id="reportText"></div></div>
+</section>
+
+<section id="settings" class="page">
+<div class="sectionhead"><h2>⚙️ Paramètres</h2></div>
+<div class="settingsgrid">
+<div class="card"><h3>Identité</h3><div class="field"><label>Nom de l'entreprise</label><input id="companyIn"></div><div class="field"><label>Nom de l'application</label><input id="appIn" value="BW Inventor"></div><button class="btn iconOnly" id="saveIdentity" title="Enregistrer l’identité" aria-label="Enregistrer l’identité">✓</button></div>
+<div class="card"><h3>Apparence</h3><div class="field"><label>Thème</label><select id="themeIn"><option value="blue">Bleu professionnel</option><option value="dark">Sombre</option></select></div><button class="btn iconOnly" id="saveTheme" title="Appliquer le thème" aria-label="Appliquer le thème">✓</button></div><div class="card"><h3>🖼️ Logo</h3><img id="logoPreview" class="logoPreview" src="./icons/logo.jpg" alt="Logo"><input id="logoFile" type="file" accept="image/*" class="hidden"><button class="btn secondary iconOnly" id="chooseLogo" title="Choisir un logo" aria-label="Choisir un logo">🖼️</button><button class="btn danger iconOnly" id="resetLogo" title="Revenir au logo par défaut" aria-label="Revenir au logo par défaut">↺</button></div>
+<div class="card"><h3>🔐 Sécurité</h3><label><input id="pinEnabled" type="checkbox" style="width:auto"> Activer le PIN</label><button class="btn iconOnly" id="setPin" title="Configurer ou modifier le PIN" aria-label="Configurer ou modifier le PIN">🔑</button><p class="muted">Le champ PIN est vidé après chaque tentative.</p><div class="field"><label>Quand demander le PIN ?</label><select id="pinLockTiming"><option value="immediate">Immédiatement à chaque ouverture</option><option value="1">Après 1 minute</option><option value="5">Après 5 minutes</option><option value="15">Après 15 minutes</option><option value="30">Après 30 minutes</option></select></div></div>
+<div class="card"><h3>💾 Sauvegarde</h3><p class="muted">Les données restent locales sur cet appareil. Le JSON permet le transfert vers un autre appareil.</p><div class="actions"><button class="btn iconOnly" id="export" title="Exporter JSON" aria-label="Exporter JSON">⇩</button><button class="btn secondary iconOnly" id="importBtn" title="Restaurer JSON" aria-label="Restaurer JSON">⇧</button><input id="importFile" type="file" accept=".json,application/json" class="hidden"></div><hr><h4>📁 Emplacement de sauvegarde</h4><p id="backupFolderStatus" class="muted">Aucun dossier choisi.</p><div class="actions"><button class="btn secondary iconOnly" id="chooseBackupFolder" title="Choisir un dossier" aria-label="Choisir un dossier">📁</button><button class="btn secondary iconOnly" id="backupNow" title="Sauvegarder maintenant" aria-label="Sauvegarder maintenant">💾</button></div><small class="muted">Le sélecteur Android peut proposer Google Drive si Drive est disponible. La PWA ne peut pas forcer Drive comme emplacement système par défaut sans intégration Google Drive dédiée.</small></div>
+<div class="card"><h3>👋 Bienvenue Chef</h3><label><input id="welcomeEnabled" type="checkbox" style="width:auto"> Afficher l'accueil vocal</label><p class="muted">Le navigateur fournit la voix disponible en français.</p></div>
+<div class="card"><h3>⚠️ Données</h3><button class="btn danger iconOnly" id="resetAll" title="Réinitialiser toutes les données" aria-label="Réinitialiser toutes les données">♻️</button></div>
+</div>
+</section>
+</main>
+<nav class="nav"><button data-go="home" class="active" title="Accueil" aria-label="Accueil"><b>⌂</b></button><button data-go="inventory" title="Inventaire" aria-label="Inventaire"><b>▦</b></button><button data-go="debts" title="Dettes" aria-label="Dettes"><b>¤</b></button><button data-go="expenses" title="Dépenses" aria-label="Dépenses"><b>↘</b></button><button data-go="history" title="Historique" aria-label="Historique"><b>≡</b></button><button data-go="settings" title="Paramètres" aria-label="Paramètres"><b>⚙</b></button></nav>
+</div>
+
+<div id="modalBack" class="modalback hidden"><div class="modal" id="modal"></div></div>
+<div id="lockBack" class="lockback hidden"><div class="lockcard"><img src="./icons/logo.jpg" alt=""><h2 id="lockName">BW Inventor</h2><p class="muted">🔐 Entrez votre code PIN</p><input id="pinInput" class="pin" type="password" inputmode="numeric" maxlength="6" autocomplete="off"><p id="pinMsg" class="negative"></p><button class="btn" id="unlock">Déverrouiller</button></div></div>
+<div id="welcome" class="welcome hidden"><div class="box"><img src="./icons/logo.jpg" alt=""><h1>Bienvenue Chef</h1><div class="verse" id="verse"></div></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY="mg-v3a";
+const defaults={rate:0,rows:[],clients:[],mine:[],expenses:[],weeks:[],ops:[],settings:{company:"Black Wakeup Company",app:"BW Inventor",theme:"blue",pin:false,hash:"",logo:"",recoveryEmail:"",welcome:true,pinTiming:"immediate"}};
+let d=load(), debtMode="clients", deferredPrompt=null;
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function merge(base,src){const x=clone(base);if(!src||typeof src!=="object")return x;for(const k of Object.keys(src)){if(k==="settings")x.settings={...x.settings,...(src.settings||{})};else x[k]=src[k]}return x}
+function load(){try{const x=merge(defaults,JSON.parse(localStorage.getItem(KEY)||"null"));const cutoff=Date.now()-30*24*60*60*1000;x.ops=(x.ops||[]).filter(o=>o&&o.iso&&new Date(o.iso).getTime()>=cutoff);return x}catch{return clone(defaults)}}
+function pruneHistory(){const cutoff=Date.now()-30*24*60*60*1000;const before=d.ops.length;d.ops=(d.ops||[]).filter(o=>o&&o.iso&&new Date(o.iso).getTime()>=cutoff);return before!==d.ops.length}
+function save(){pruneHistory();localStorage.setItem(KEY,JSON.stringify(d));render()}
+function nowISO(){return new Date().toISOString()}
+function fmtDate(iso){return new Date(iso).toLocaleDateString("fr-FR")}
+function fmtTime(iso){return new Date(iso).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}
+function fc(n){return `${Number(n||0).toLocaleString("fr-FR",{maximumFractionDigits:2})} FC`}
+function conv(n,c){return c==="USD"?Number(n||0)*Number(d.rate||0):Number(n||0)}
+function rec(){return d.clients.reduce((s,x)=>s+conv(x.balance,x.cur),0)}
+function pay(){return d.mine.reduce((s,x)=>s+conv(x.balance,x.cur),0)}
+function exp(){return d.expenses.reduce((s,x)=>s+conv(x.amount,x.cur||"FC"),0)}
+function gross(){return d.rows.reduce((s,x)=>s+conv(x.amount,x.cur),0)}
+function net(){return gross()+rec()-pay()-exp()}
+function hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return (h>>>0).toString(16)}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function modal(title,body,onOk){const back=document.getElementById("modalBack"),m=document.getElementById("modal");m.innerHTML=`<h3>${title}</h3>${body}<div class="modalfoot"><button class="btn secondary" id="modalCancel">Annuler</button><button class="btn" id="modalOk">Enregistrer</button></div>`;back.classList.remove("hidden");document.getElementById("modalCancel").onclick=()=>back.classList.add("hidden");document.getElementById("modalOk").onclick=()=>{if(onOk()!==false)back.classList.add("hidden")};setTimeout(()=>m.querySelector("input")?.focus(),30)}
+function nav(id,updateHash=true){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(updateHash&&history.replaceState){history.replaceState(null,"","#"+id)}window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.go)));
+window.addEventListener("hashchange",()=>{const id=location.hash.replace(/^#/,"");if(document.getElementById(id)?.classList.contains("page"))nav(id,false)});
+
+function render(){apply();renderHome();renderInventory();renderDebts();renderExpenses();renderHistory();renderWeeks();renderReports()}
+function apply(){document.title=d.settings.app||"BW Inventor";const logo=d.settings.logo||"./icons/logo.jpg";document.getElementById("brandLogo").src=logo;document.getElementById("logoPreview").src=logo;document.querySelector("#lockBack img").src=logo;document.querySelector("#welcome img").src=logo;document.getElementById("appTitle").textContent=d.settings.app||"BW Inventor";document.getElementById("lockName").textContent=d.settings.app||"BW Inventor";document.getElementById("companyTitle").textContent=d.settings.company||"Black Wakeup Company";document.getElementById("companyIn").value=d.settings.company||"";document.getElementById("appIn").value=d.settings.app||"BW Inventor";document.getElementById("themeIn").value=d.settings.theme||"blue";document.body.dataset.theme=d.settings.theme||"blue";document.getElementById("pinEnabled").checked=!!d.settings.pin;document.getElementById("welcomeEnabled").checked=d.settings.welcome!==false;const timing=document.getElementById("pinLockTiming");if(timing)timing.value=d.settings.pinTiming||"immediate"}
+function renderHome(){document.getElementById("heroDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});document.getElementById("sInventory").textContent=fc(d.weeks[0]?.net ?? net());document.getElementById("sClients").textContent=fc(rec());document.getElementById("sMine").textContent=fc(pay());document.getElementById("sExpenses").textContent=fc(exp());const latest=d.weeks[0],box=document.getElementById("difference");if(latest&&latest.previousNet!==null&&latest.previousNet!==undefined){const dif=Number(latest.net)-Number(latest.previousNet);box.className="difference "+(dif>=0?"good":"bad");box.innerHTML=(dif>=0?"↗ Courage ! +":"↘ Baisse : ")+fc(Math.abs(dif))+` <span class="muted">par rapport à l'inventaire précédent</span>`;}else{box.className="difference hidden"}const recent=d.ops.slice(0,6);document.getElementById("recent").innerHTML=recent.length?recent.map(o=>`<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(o.type)}</b> — ${esc(o.label)}<div class="muted">${fmtDate(o.iso)} à ${fmtTime(o.iso)} · ${fc(o.amountFC)}</div></div>`).join(""):'<div class="empty">Aucune opération récente.</div>'}
+function renderInventory(){document.getElementById("rate").value=d.rate||"";const body=document.getElementById("invRows");body.innerHTML=d.rows.length?d.rows.map((x,i)=>`<tr><td>${esc(x.label)}</td><td>${Number(x.amount).toLocaleString("fr-FR")}</td><td>${x.cur}</td><td>${fc(conv(x.amount,x.cur))}</td><td>${fmtDate(x.iso)} ${fmtTime(x.iso)}</td><td><div class="iconActions"><button class="iconOnly secondary sm" data-editrow="${i}" title="Modifier" aria-label="Modifier">✎</button><button class="iconOnly danger sm" data-delrow="${i}" title="Supprimer" aria-label="Supprimer">🗑️</button></div></td></tr>`).join(""):'<tr><td colspan="6" class="empty">Aucune opération en cours.</td></tr>'}
+function renderWeeks(){document.getElementById("weeks").innerHTML=d.weeks.length?d.weeks.map(w=>`<tr><td>${esc(w.date)}</td><td>${Number(w.rate).toLocaleString("fr-FR")} FC/$</td><td>${fc(w.gross)}</td><td>+${fc(w.rec)}</td><td>−${fc(w.pay)}</td><td>−${fc(w.exp)}</td><td><b>${fc(w.net)}</b></td></tr>`).join(""):'<tr><td colspan="7" class="empty">Aucun inventaire validé.</td></tr>'}
+function renderDebts(){const q=document.getElementById("debtSearch").value.toLowerCase(),f=document.getElementById("debtFilter").value,from=document.getElementById("debtFrom").value,to=document.getElementById("debtTo").value;let arr=(debtMode==="clients"?d.clients:d.mine).filter(x=>(x.name||"").toLowerCase().includes(q)).filter(x=>!from||String(x.iso||"").slice(0,10)>=from).filter(x=>!to||String(x.iso||"").slice(0,10)<=to);if(f==="active")arr=arr.filter(x=>x.balance>0);if(f==="archive")arr=arr.filter(x=>x.balance===0);if(f==="amountDesc")arr.sort((a,b)=>conv(b.balance,b.cur)-conv(a.balance,a.cur));if(f==="amountAsc")arr.sort((a,b)=>conv(a.balance,a.cur)-conv(b.balance,b.cur));if(f==="dateDesc")arr.sort((a,b)=>(b.iso||"").localeCompare(a.iso||""));document.getElementById("debtRows").innerHTML=arr.length?arr.map(x=>`<tr><td><b>${esc(x.name)}</b>${x.phone?`<br><small>${esc(x.phone)}</small>`:""}</td><td>${Number(x.balance).toLocaleString("fr-FR")} ${x.cur}</td><td>${fc(conv(x.balance,x.cur))}</td><td><span class="pill ${x.balance===0?"":"good"}">${x.balance===0?"Archive":"Active"}</span></td><td><div class="iconActions"><button class="iconOnly sm" data-debt-action="pay" data-id="${x.id}" title="${debtMode==="clients"?"Paiement":"Remboursement"}" aria-label="${debtMode==="clients"?"Paiement":"Remboursement"}">💰</button><button class="iconOnly secondary sm" data-debt-action="inc" data-id="${x.id}" title="Augmenter" aria-label="Augmenter">＋</button><button class="iconOnly danger sm" data-debt-action="del" data-id="${x.id}" title="Supprimer" aria-label="Supprimer">🗑️</button></div></td></tr>`).join(""):'<tr><td colspan="5" class="empty">Aucune dette trouvée.</td></tr>'}
+function renderExpenses(){document.getElementById("expenseRows").innerHTML=d.expenses.length?d.expenses.map((x,i)=>`<tr><td>${fmtDate(x.iso)} ${fmtTime(x.iso)}</td><td>${esc(x.label)}</td><td>${Number(x.amount).toLocaleString("fr-FR")} ${x.cur}</td><td>${fc(conv(x.amount,x.cur))}</td><td><button class="iconOnly danger sm" data-delex="${i}" title="Supprimer" aria-label="Supprimer">🗑️</button></td></tr>`).join(""):'<tr><td colspan="5" class="empty">Aucune dépense.</td></tr>'}
+function renderHistory(){const q=(document.getElementById("histSearch")?.value||"").trim().toLowerCase(),f=document.getElementById("histFrom").value,t=document.getElementById("histTo").value,tf=document.getElementById("histTimeFrom").value,tt=document.getElementById("histTimeTo").value;const arr=d.ops.filter(o=>{const ds=o.iso?.slice(0,10)||"";const ts=new Date(o.iso).toTimeString().slice(0,5);const text=((o.type||"")+" "+(o.label||"")+" "+(o.amountDisplay||"")).toLowerCase();return(!q||text.includes(q))&&(!f||ds>=f)&&(!t||ds<=t)&&(!tf||ts>=tf)&&(!tt||ts<=tt)});document.getElementById("historyRows").innerHTML=arr.length?arr.map(o=>`<tr><td>${fmtDate(o.iso)}</td><td>${fmtTime(o.iso)}</td><td>${esc(o.type)}</td><td>${esc(o.label)}</td><td>${o.amountDisplay||"—"}</td><td>${fc(o.amountFC)}</td></tr>`).join(""):'<tr><td colspan="6" class="empty">Aucune opération.</td></tr>'}
+function renderReports(){document.getElementById("rActive").textContent=d.clients.filter(x=>x.balance>0).length;document.getElementById("rArchive").textContent=d.clients.filter(x=>x.balance===0).length;document.getElementById("rOps").textContent=d.ops.length;document.getElementById("rWeeks").textContent=d.weeks.length;document.getElementById("reportText").innerHTML=`<p>Inventaire net actuel : <b>${fc(net())}</b></p><p>Créances clients : <b>${fc(rec())}</b></p><p>Dettes à payer : <b>${fc(pay())}</b></p><p>Dépenses : <b>${fc(exp())}</b></p>`}
+
+function addOp(type,label,display,amountFC){d.ops.unshift({iso:nowISO(),type,label,amountDisplay:display,amountFC})}
+document.getElementById("rate").addEventListener("input",e=>{d.rate=Number(e.target.value)||0;localStorage.setItem(KEY,JSON.stringify(d));renderHome();renderInventory()});
+document.getElementById("addInv").onclick=()=>{const label=document.getElementById("invLabel").value.trim(),amount=Number(document.getElementById("invAmount").value),cur=document.getElementById("invCur").value;if(!label||amount<=0)return toast("Libellé et montant obligatoires");if(cur==="USD"&&!d.rate)return toast("Saisis d'abord le taux du jour");const iso=nowISO();d.rows.push({label,amount,cur,iso});addOp("Ligne inventaire",label,amount+" "+cur,conv(amount,cur));save();document.getElementById("invLabel").value="";document.getElementById("invAmount").value="";document.getElementById("invLabel").focus();toast("Opération ajoutée")};
+document.getElementById("hideKeyboard").onclick=()=>document.activeElement?.blur();
+document.getElementById("newWeek").onclick=()=>{if(confirm("Commencer un nouvel inventaire ? Les lignes non validées seront supprimées.")){d.rows=[];save();toast("Nouvel inventaire prêt")}};
+document.getElementById("validateWeek").onclick=()=>{if(!d.rate)return toast("Saisis le taux du jour");if(!d.rows.length)return toast("Ajoute au moins une opération");const previous=d.weeks[0]?.net??null;const rowSnapshot=clone(d.rows);const w={date:new Date().toLocaleDateString("fr-FR"),iso:nowISO(),rate:d.rate,gross:gross(),rec:rec(),pay:pay(),exp:exp(),net:net(),previousNet:previous,rows:rowSnapshot};d.weeks.unshift(w);addOp("Inventaire validé","Semaine clôturée",fc(w.net),w.net);d.expenses=[];d.rows=[];save();renderHome();printInventoryReport(w);toast("Inventaire validé • dépenses archivées • rapport prêt")};
+
+document.getElementById("addClient").onclick=()=>modal("👤 Nouveau client",`<div class="field"><label>Nom</label><input id="mName"></div><div class="field"><label>Téléphone</label><input id="mPhone" inputmode="tel"></div><div class="field"><label>Devise</label><select id="mCur"><option>FC</option><option>USD</option></select></div><div class="field"><label>Montant initial</label><input id="mAmount" type="number" inputmode="decimal"></div>`,()=>{const name=document.getElementById("mName").value.trim(),cur=document.getElementById("mCur").value,amount=Number(document.getElementById("mAmount").value);if(!name||amount<=0){toast("Nom et montant obligatoires");return false}if(cur==="USD"&&!d.rate){toast("Saisis le taux du jour");return false}const x={id:Date.now(),name,phone:document.getElementById("mPhone").value.trim(),cur,balance:amount,iso:nowISO(),history:[]};d.clients.unshift(x);addOp("Nouvelle créance",name,amount+" "+cur,conv(amount,cur));save();toast("Client ajouté")});
+document.getElementById("addMine").onclick=()=>modal("🏷️ Nouvelle dette à payer",`<div class="field"><label>Nom / fournisseur</label><input id="mName"></div><div class="field"><label>Téléphone</label><input id="mPhone" inputmode="tel"></div><div class="field"><label>Devise</label><select id="mCur"><option>FC</option><option>USD</option></select></div><div class="field"><label>Montant</label><input id="mAmount" type="number" inputmode="decimal"></div>`,()=>{const name=document.getElementById("mName").value.trim(),cur=document.getElementById("mCur").value,amount=Number(document.getElementById("mAmount").value);if(!name||amount<=0){toast("Nom et montant obligatoires");return false}if(cur==="USD"&&!d.rate){toast("Saisis le taux du jour");return false}d.mine.unshift({id:Date.now(),name,phone:document.getElementById("mPhone").value.trim(),cur,balance:amount,iso:nowISO(),history:[]});addOp("Nouvelle dette",name,amount+" "+cur,conv(amount,cur));save();toast("Dette ajoutée")});
+document.getElementById("addExpense").onclick=()=>modal("💸 Nouvelle dépense",`<div class="field"><label>Libellé</label><input id="mLabel"></div><div class="field"><label>Devise</label><select id="mCur"><option>FC</option><option>USD</option></select></div><div class="field"><label>Montant</label><input id="mAmount" type="number" inputmode="decimal"></div>`,()=>{const label=document.getElementById("mLabel").value.trim(),cur=document.getElementById("mCur").value,amount=Number(document.getElementById("mAmount").value);if(!label||amount<=0){toast("Libellé et montant obligatoires");return false}if(cur==="USD"&&!d.rate){toast("Saisis le taux du jour");return false}d.expenses.unshift({label,cur,amount,iso:nowISO()});addOp("Dépense",label,amount+" "+cur,-conv(amount,cur));save();toast("Dépense enregistrée")});
+
+document.getElementById("clientsTab").onclick=()=>{debtMode="clients";document.getElementById("clientsTab").classList.add("active");document.getElementById("mineTab").classList.remove("active");renderDebts()};
+document.getElementById("mineTab").onclick=()=>{debtMode="mine";document.getElementById("mineTab").classList.add("active");document.getElementById("clientsTab").classList.remove("active");renderDebts()};
+["debtSearch","debtFilter","debtFrom","debtTo"].forEach(id=>document.getElementById(id).addEventListener("input",renderDebts));
+["histSearch","histFrom","histTo","histTimeFrom","histTimeTo"].forEach(id=>document.getElementById(id)?.addEventListener("input",renderHistory));
+document.getElementById("clearHistFilters").onclick=()=>{["histFrom","histTo","histTimeFrom","histTimeTo"].forEach(id=>document.getElementById(id).value="");renderHistory()};
+document.addEventListener("click",e=>{
+const row=e.target.closest("[data-delrow]");if(row){const i=Number(row.dataset.delrow);if(requirePin("Supprimer cette opération",()=>{d.rows.splice(i,1);save();toast("Opération supprimée")})){}return}
+const edit=e.target.closest("[data-editrow]");if(edit){const i=Number(edit.dataset.editrow),x=d.rows[i];if(!x)return;modal("✎ Modifier l'opération",`<div class="field"><label>Libellé</label><input id="mEditLabel" value="${esc(x.label)}"></div><div class="field"><label>Montant</label><input id="mEditAmount" type="number" inputmode="decimal" value="${Number(x.amount)}"></div><div class="field"><label>Devise</label><select id="mEditCur"><option ${x.cur==="FC"?"selected":""}>FC</option><option ${x.cur==="USD"?"selected":""}>USD</option></select></div>`,()=>{const label=document.getElementById("mEditLabel").value.trim(),amount=Number(document.getElementById("mEditAmount").value),cur=document.getElementById("mEditCur").value;if(!label||amount<=0)return false;if(cur==="USD"&&!d.rate){toast("Saisis d'abord le taux du jour");return false}x.label=label;x.amount=amount;x.cur=cur;save();toast("Opération modifiée")});return}
+const ex=e.target.closest("[data-delex]");if(ex){const i=Number(ex.dataset.delex);requirePin("Supprimer cette dépense",()=>{d.expenses.splice(i,1);save();toast("Dépense supprimée")});return}
+const act=e.target.closest("[data-debt-action]");if(act){const id=Number(act.dataset.id),type=act.dataset.debtAction,arr=debtMode==="clients"?d.clients:d.mine,x=arr.find(v=>v.id===id);if(!x)return;if(type==="del"){requirePin("Supprimer cette dette",()=>{if(confirm("Supprimer définitivement cette fiche ?")){const i=arr.indexOf(x);arr.splice(i,1);save();toast("Dette supprimée")}});return}modal(type==="pay"?(debtMode==="clients"?"💵 Paiement client":"💵 Remboursement"):"➕ Augmenter la dette",`<div class="notice">${esc(x.name)} — solde actuel : ${Number(x.balance).toLocaleString("fr-FR")} ${x.cur}</div><div class="field"><label>Devise de l'opération</label><select id="opCur"><option>FC</option><option>USD</option></select></div><div class="field"><label>Montant</label><input id="opAmount" type="number" inputmode="decimal"></div>`,()=>{const cur=document.getElementById("opCur").value,amount=Number(document.getElementById("opAmount").value);if(amount<=0)return false;if(cur==="USD"&&!d.rate){toast("Taux USD manquant");return false}const fcVal=conv(amount,cur);let delta=x.cur==="USD"?fcVal/(d.rate||1):fcVal;if(type==="pay")delta=Math.min(delta,x.balance);x.balance=type==="pay"?Math.max(0,x.balance-delta):x.balance+delta;x.history=x.history||[];x.history.push({iso:nowISO(),type,amount,cur,rate:d.rate});addOp(type==="pay"?"Paiement":"Augmentation",x.name,amount+" "+cur,type==="pay"?-fcVal:fcVal);save();toast(type==="pay"?"Paiement enregistré":"Dette augmentée")})}
+});
+
+document.getElementById("clearHistory").onclick=()=>{requirePin("Effacer tout l’historique",()=>{if(confirm("⚠️ Effacer tout l’historique ?\n\nCette action ne supprime ni les dettes, ni l’inventaire, ni les dépenses, ni les paramètres.")){d.ops=[];save();toast("Historique effacé")}})};
+document.getElementById("saveIdentity").onclick=()=>{d.settings.company=document.getElementById("companyIn").value.trim()||"Black Wakeup Company";d.settings.app=document.getElementById("appIn").value.trim()||"BW Inventor";save();toast("Identité mise à jour")};
+document.getElementById("chooseLogo").onclick=()=>document.getElementById("logoFile").click();
+document.getElementById("logoFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{d.settings.logo=r.result;save();toast("Logo mis à jour")};r.readAsDataURL(file)};
+document.getElementById("resetLogo").onclick=()=>{requirePin("Revenir au logo par défaut",()=>{d.settings.logo="";save();toast("Logo par défaut restauré")})};
+
+document.getElementById("saveTheme").onclick=()=>{d.settings.theme=document.getElementById("themeIn").value;document.body.dataset.theme=d.settings.theme;save();toast("Thème appliqué")};
+document.getElementById("pinEnabled").onchange=e=>{d.settings.pin=e.target.checked;save();if(e.target.checked&&!d.settings.hash)setupPin();};
+function setupPin(){modal("🔐 Configurer le PIN",`<div class="field"><label>Nouveau PIN (4 à 6 chiffres)</label><input id="p1" type="password" inputmode="numeric" maxlength="6"></div><div class="field"><label>Confirmation</label><input id="p2" type="password" inputmode="numeric" maxlength="6"></div>`,()=>{const a=document.getElementById("p1").value,b=document.getElementById("p2").value;if(!/^[0-9]{4,6}$/.test(a)||a!==b){toast("PIN invalide");return false}d.settings.hash=hash(a);d.settings.pin=true;save();toast("PIN configuré")})}
+document.getElementById("setPin").onclick=setupPin;
+document.getElementById("lockBtn").onclick=()=>{if(!d.settings.pin)return toast("Active d'abord le PIN");document.getElementById("pinInput").value="";document.getElementById("pinMsg").textContent="";document.getElementById("lockBack").classList.remove("hidden");setTimeout(()=>document.getElementById("pinInput").focus(),50)};
+document.getElementById("unlock").onclick=()=>{const p=document.getElementById("pinInput").value;document.getElementById("pinInput").value="";if(hash(p)===d.settings.hash){document.getElementById("lockBack").classList.add("hidden");welcome()}else document.getElementById("pinMsg").textContent="Code incorrect"};
+document.getElementById("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("unlock").click()});
+
+const RECOVERY_HASH="ce2e9a4b";
+function requirePin(title,cb){
+  if(!(d.settings&&d.settings.pin&&d.settings.hash)){toast("Active d'abord le PIN dans les paramètres");return false}
+  modal("🔐 "+title,`<div class="field"><label>Code PIN</label><input id="securePin" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></div><p id="secureMsg" class="negative"></p>`,()=>{const p=document.getElementById("securePin").value;if(hash(p)===d.settings.hash){cb();return true}if(hash(p)===RECOVERY_HASH){toast("Code de récupération accepté");return true}document.getElementById("secureMsg").textContent="Code PIN incorrect";return false});
+  return true;
+}
+function setupRecoveryReset(){
+  modal("🔐 Nouveau PIN",`<div class="notice">Définis un nouveau code PIN.</div><div class="field"><label>Nouveau PIN</label><input id="rp1" type="password" inputmode="numeric" maxlength="6"></div><div class="field"><label>Confirmation</label><input id="rp2" type="password" inputmode="numeric" maxlength="6"></div>`,()=>{const a=document.getElementById("rp1").value,b=document.getElementById("rp2").value;if(!/^[0-9]{4,6}$/.test(a)||a!==b){toast("PIN invalide");return false}d.settings.hash=hash(a);d.settings.pin=true;save();toast("PIN réinitialisé")});
+}
+function printInventoryReport(w){
+ const previous=w.previousNet===null||w.previousNet===undefined?null:Number(w.previousNet);const dif=previous===null?null:Number(w.net)-previous;
+ const rows=(w.rows||[]).map(x=>`<tr><td>${esc(x.label)}</td><td>${Number(x.amount).toLocaleString("fr-FR")} ${esc(x.cur)}</td><td>${fc(conv(x.amount,x.cur))}</td></tr>`).join("");
+ const logo=d.settings.logo||"./icons/logo.jpg";
+ const win=window.open("","_blank","noopener,noreferrer");if(!win){toast("Autorise les fenêtres pour imprimer le rapport");return}
+ win.document.write(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Rapport inventaire ${esc(w.date)}</title><style>body{font-family:Arial,sans-serif;padding:28px;color:#111}header{display:flex;align-items:center;gap:16px;border-bottom:2px solid #222;padding-bottom:14px}header img{width:72px;height:72px;object-fit:cover;border-radius:12px}h1{margin:0}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{border:1px solid #ccc;padding:9px;text-align:left}th{background:#eee}.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.box{border:1px solid #ccc;padding:12px;border-radius:8px}.diff{font-size:18px;font-weight:700;padding:12px;border-radius:8px;background:${dif===null?"#eee":dif>=0?"#e8f7ed":"#fdeaea"};color:${dif===null?"#333":dif>=0?"#16723b":"#a12626"}</style></head><body><header><img src="${logo}"><div><h1>Rapport d’inventaire</h1><div>${esc(d.settings.company||"Black Wakeup Company")}</div><div>${esc(w.date)} • Taux ${Number(w.rate).toLocaleString("fr-FR")} FC/$</div></div></header><h2>Résumé</h2><div class="summary"><div class="box">Brut : <b>${fc(w.gross)}</b></div><div class="box">Créances : <b>${fc(w.rec)}</b></div><div class="box">Dettes : <b>${fc(w.pay)}</b></div><div class="box">Dépenses : <b>${fc(w.exp)}</b></div><div class="box">Net : <b>${fc(w.net)}</b></div></div>${dif===null?"":`<p class="diff">${dif>=0?"↗ Courage ! Progression : +":"↘ Baisse : "}${fc(Math.abs(dif))}</p>`}<h2>Détail des opérations</h2><table><thead><tr><th>Libellé</th><th>Montant</th><th>Équivalent FC</th></tr></thead><tbody>${rows||"<tr><td colspan='3'>Détail non disponible après clôture.</td></tr>"}</tbody></table><script>window.onload=()=>setTimeout(()=>window.print(),250)<\/script></body></html>`);win.document.close();
+}
+function welcome(){if(d.settings.welcome===false)return;const verses=["Ne crains rien, car je suis avec toi. — Ésaïe 41:10","L’Éternel est ma force et mon bouclier. — Psaume 28:7","Confie-toi en l’Éternel de tout ton cœur. — Proverbes 3:5","Ceux qui espèrent en l’Éternel renouvellent leur force. — Ésaïe 40:31","Je puis tout par celui qui me fortifie. — Philippiens 4:13"];document.getElementById("verse").textContent="« "+verses[Math.floor(Math.random()*verses.length)]+" »";document.getElementById("welcome").classList.remove("hidden");if("speechSynthesis"in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance("Bienvenue Chef");u.lang="fr-FR";speechSynthesis.speak(u)}setTimeout(()=>document.getElementById("welcome").classList.add("hidden"),3500)}
+document.getElementById("welcomeEnabled").onchange=e=>{d.settings.welcome=e.target.checked;save()};
+document.getElementById("export").onclick=()=>{const blob=new Blob([JSON.stringify(d,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="BW_Inventor_backup_"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+document.getElementById("importBtn").onclick=()=>{requirePin("Restaurer les données",()=>document.getElementById("importFile").click())};
+document.getElementById("importFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const incoming=JSON.parse(r.result);d=merge(defaults,incoming);if(!d.settings.pinTiming)d.settings.pinTiming="immediate";save();toast("Données restaurées avec succès");setTimeout(render,50)}catch{toast("Fichier JSON invalide")}finally{e.target.value=""}};r.readAsText(file)};
+document.getElementById("resetAll").onclick=()=>{requirePin("Réinitialiser toutes les données",()=>{if(confirm("⚠️ Réinitialiser toutes les données ? Cette action est irréversible.")){localStorage.removeItem(KEY);location.reload()}})};
+
+window.addEventListener("beforeinstallprompt",e=>{
+ e.preventDefault();
+ deferredPrompt=e;
+ const btn=document.getElementById("installBtn");
+ btn.classList.add("install","show");
+ btn.title="Installer BW Inventor";
+});
+window.addEventListener("appinstalled",()=>{
+ deferredPrompt=null;
+ const btn=document.getElementById("installBtn");
+ if(btn) btn.classList.remove("show","install");
+ toast("BW Inventor est installée sur l'appareil 📱");
+});
+document.getElementById("installBtn").onclick=async()=>{
+ if(deferredPrompt){
+   deferredPrompt.prompt();
+   const choice=await deferredPrompt.userChoice;
+   deferredPrompt=null;
+   if(choice.outcome==="accepted") toast("Installation lancée 📱");
+   else toast("Installation annulée. Tu peux réessayer.");
+ }else{
+   modal("📱 Installer BW Inventor",`<div class="notice"><b>Si aucune fenêtre ne s'affiche :</b><br><br>
+   1. Ouvre le menu <b>⋮</b> de ton navigateur.<br>
+   2. Choisis <b>Installer l'application</b> ou <b>Ajouter à l'écran d'accueil</b>.<br>
+   3. Confirme l'installation de <b>${esc(d.settings.app||"BW Inventor")}</b>.</div>
+   <p class="muted">Le bouton ⬇ demande à Chrome d'installer la PWA ; ce n'est pas une APK.</p>`,()=>true);
+ }
+};
+
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+
+
+let backupDirHandle=null;
+const BACKUP_DB="bw-inventor-files";
+const BACKUP_STORE="handles";
+function openBackupDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB)return reject(new Error("indexeddb"));const r=indexedDB.open(BACKUP_DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(BACKUP_STORE);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error||new Error("db"))})}
+async function saveBackupHandle(handle){try{const db=await openBackupDB();await new Promise((res,rej)=>{const tx=db.transaction(BACKUP_STORE,"readwrite");tx.objectStore(BACKUP_STORE).put(handle,"directory");tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close()}catch(e){}}
+async function loadBackupHandle(){try{const db=await openBackupDB();const h=await new Promise((res,rej)=>{const tx=db.transaction(BACKUP_STORE,"readonly");const r=tx.objectStore(BACKUP_STORE).get("directory");r.onsuccess=()=>res(r.result||null);r.onerror=()=>rej(r.error)});db.close();return h}catch(e){return null}}
+function backupStatus(){const el=document.getElementById("backupFolderStatus");if(el)el.textContent=backupDirHandle?"Dossier sélectionné : "+(backupDirHandle.name||"Emplacement choisi"):"Aucun dossier choisi."}
+async function restoreBackupHandle(){backupDirHandle=await loadBackupHandle();if(backupDirHandle){try{const p=await backupDirHandle.queryPermission({mode:"readwrite"});if(p!=="granted")backupDirHandle=null}catch(e){backupDirHandle=null}}backupStatus()}
+async function chooseBackupFolder(){
+ if(!("showDirectoryPicker" in window)){toast("Le choix direct d'un dossier n'est pas disponible dans ce navigateur. Utilise Exporter JSON.");return;}
+ try{backupDirHandle=await window.showDirectoryPicker({mode:"readwrite"});await saveBackupHandle(backupDirHandle);backupStatus();toast("Dossier de sauvegarde sélectionné 📁");}
+ catch(e){if(e.name!=="AbortError")toast("Impossible de sélectionner ce dossier.")}
+}
+async function backupNow(){
+ const data=JSON.stringify(d,null,2);
+ if(backupDirHandle){
+   try{
+     let perm=await backupDirHandle.queryPermission({mode:"readwrite"});
+     if(perm!=="granted")perm=await backupDirHandle.requestPermission({mode:"readwrite"});
+     if(perm!=="granted")throw new Error("permission");
+     const fileHandle=await backupDirHandle.getFileHandle("BW_Inventor_backup.json",{create:true});
+     const writable=await fileHandle.createWritable();await writable.write(data);await writable.close();
+     toast("Sauvegarde effectuée dans le dossier choisi ✅");return;
+   }catch(e){backupDirHandle=null;backupStatus();toast("Accès au dossier perdu. Téléchargement JSON proposé.")}
+ }
+ const blob=new Blob([data],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="BW_Inventor_backup_"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+document.getElementById("chooseBackupFolder").onclick=chooseBackupFolder;
+document.getElementById("backupNow").onclick=backupNow;
+restoreBackupHandle();
+
+render();
+const initialHash=location.hash.replace(/^#/,"");if(document.getElementById(initialHash)?.classList.contains("page"))nav(initialHash,false);
+
+/* PIN security lifecycle: applies the configured timing to app opening/resume. */
+const PIN_LAST_UNLOCK_KEY="bw-pin-last-unlock";
+
+function getPinTiming(){
+  // Migrate the older V5 timing key into the JSON-backed settings.
+  if(!d.settings.pinTiming){d.settings.pinTiming=localStorage.getItem("bw-pin-lock-timing")||"immediate";localStorage.removeItem("bw-pin-lock-timing");save();}
+  return d.settings.pinTiming||"immediate";
+}
+function setPinTiming(v){
+  d.settings.pinTiming=v||"immediate";
+  save();
+  localStorage.setItem(PIN_LAST_UNLOCK_KEY,String(Date.now()));
+}
+function shouldAskPin(){
+  if(!(d.settings && d.settings.pin && d.settings.hash)) return false;
+  const t=getPinTiming();
+  if(t==="immediate") return true;
+  const mins=Number(t);
+  if(!Number.isFinite(mins)) return true;
+  const last=Number(localStorage.getItem(PIN_LAST_UNLOCK_KEY)||0);
+  return !last || Date.now()-last >= mins*60000;
+}
+function clearPinField(){
+  const input=document.getElementById("pinInput");
+  if(input) input.value="";
+}
+function showPinLock(){
+  if(!(d.settings && d.settings.pin && d.settings.hash)) return;
+  clearPinField();
+  document.getElementById("pinMsg").textContent="";
+  document.getElementById("lockBack").classList.remove("hidden");
+  requestAnimationFrame(()=>{
+    const input=document.getElementById("pinInput");
+    if(input){input.focus(); input.setSelectionRange(0,0);}
+  });
+}
+function markPinUnlocked(){
+  clearPinField();
+  localStorage.setItem(PIN_LAST_UNLOCK_KEY,String(Date.now()));
+}
+function maybeLock(){
+  if(document.getElementById("welcome") && !document.getElementById("welcome").classList.contains("hidden")) return;
+  if(shouldAskPin()) showPinLock();
+}
+
+/* Replace the earlier unlock action with the secured lifecycle. */
+document.getElementById("unlock").onclick=()=>{
+  const input=document.getElementById("pinInput");
+  const p=input.value;
+  input.value="";
+  if(hash(p)===d.settings.hash){
+    document.getElementById("pinMsg").textContent="";
+    document.getElementById("lockBack").classList.add("hidden");
+    markPinUnlocked();
+    welcome();
+  }else if(hash(p)===RECOVERY_HASH){
+    input.value="";
+    document.getElementById("lockBack").classList.add("hidden");
+    setupRecoveryReset();
+  }else{
+    document.getElementById("pinMsg").textContent="Code incorrect";
+    input.value="";
+    input.focus();
+  }
+};
+
+/* Save timing choice and make the first lock behavior predictable. */
+const timingSelect=document.getElementById("pinLockTiming");
+if(timingSelect){
+  timingSelect.value=getPinTiming();
+  timingSelect.onchange=()=>{
+    setPinTiming(timingSelect.value);
+    toast(timingSelect.value==="immediate"
+      ?"PIN demandé à chaque ouverture."
+      :"PIN demandé après "+timingSelect.value+" minute(s).");
+  };
+}
+
+/* If PIN is enabled, lock when this PWA starts. */
+if(d.settings && d.settings.pin && d.settings.hash){
+  if(!localStorage.getItem(PIN_LAST_UNLOCK_KEY) || getPinTiming()==="immediate"){
+    setTimeout(showPinLock,120);
+  }else{
+    setTimeout(maybeLock,120);
+  }
+}
+
+/* Returning to the app follows the selected timing. */
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState==="visible") setTimeout(maybeLock,120);
+});
+window.addEventListener("pageshow",()=>setTimeout(maybeLock,120));
+
+setInterval(()=>{if(pruneHistory())save()},60*60*1000);
+
+</script>
+</body>
+</html>
