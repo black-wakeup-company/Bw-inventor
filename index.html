@@ -245,7 +245,7 @@ document.getElementById("lockBtn").onclick=()=>{if(!d.settings.pin)return toast(
 document.getElementById("unlock").onclick=()=>{const p=document.getElementById("pinInput").value;document.getElementById("pinInput").value="";if(hash(p)===d.settings.hash){document.getElementById("lockBack").classList.add("hidden");welcome()}else document.getElementById("pinMsg").textContent="Code incorrect"};
 document.getElementById("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("unlock").click()});
 
-const RECOVERY_HASH="ce2e9a4b";
+const RECOVERY_HASH="6ed312f3";
 function requirePin(title,cb){
   if(!(d.settings&&d.settings.pin&&d.settings.hash)){toast("Active d'abord le PIN dans les paramètres");return false}
   modal("🔐 "+title,`<div class="field"><label>Code PIN</label><input id="securePin" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></div><p id="secureMsg" class="negative"></p>`,()=>{const p=document.getElementById("securePin").value;if(hash(p)===d.settings.hash){cb();return true}if(hash(p)===RECOVERY_HASH){toast("Code de récupération accepté");return true}document.getElementById("secureMsg").textContent="Code PIN incorrect";return false});
