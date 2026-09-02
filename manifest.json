@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "BW Inventor",
+  "short_name": "BW Inventor",
+  "description": "Gestion commerciale personnelle — Black Wakeup Company",
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#ffffff",
+  "theme_color": "#0b5ed7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ],
+  "shortcuts": [
+    {"name":"Inventaire","short_name":"Inventaire","url":"./index.html#inventory","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]},
+    {"name":"Dettes","short_name":"Dettes","url":"./index.html#debts","icons":[{"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"}]}
+  ]
+}
